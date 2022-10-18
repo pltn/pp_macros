@@ -1,0 +1,53 @@
+' Сохраняет активный слайд
+Sub SaveSlide()
+    ' Номер слайда
+    Dim s As Integer
+    ' Двузначный номер слайда с ведущим 0
+    Dim ss As String
+    ' Получаем номер текущего слайда
+    s = Application.ActiveWindow.View.Slide.SlideIndex
+    ' Если номер меньше 10
+    If s < 10 Then
+        ' Переводим в строку и добвляем ведущий 0
+        ss = "0" + CStr(s)
+    Else
+        ' Иначе просто переводим в строку
+        ss = CStr(s)
+    End If
+    
+    With Application.ActivePresentation.Slides(s)
+        ' Экспортируем слайд с заданным номером в png
+        .Export "Slide_" + ss + ".png", "PNG"
+    End With
+    
+End Sub
+
+' Сохраняет все слайды
+Sub SaveAllSlides()
+    ' Количество слайдов
+    Dim c As Integer
+    ' Номер слайда с ведущим 0
+    Dim ss As String
+    
+    ' Получаем количество слайдов
+    c = Application.ActivePresentation.Slides.Count
+    
+    ' Перебираем слайды в цикле по номерм от 1 до макс
+    For s = 1 To c
+        ' Если номер меньше 10
+        If s < 10 Then
+            ' Переводим в строку и добвляем ведущий 0
+           ss = "0" + CStr(s)
+        Else
+            ' Иначе просто переводим в строку
+            ss = CStr(s)
+        End If
+        
+        With Application.ActivePresentation.Slides(s)
+            ' Экспортируем слайд с заданным номером в png
+            .Export "Slide_" + ss + ".png", "PNG"
+        End With
+    
+    Next s
+    
+End Sub
